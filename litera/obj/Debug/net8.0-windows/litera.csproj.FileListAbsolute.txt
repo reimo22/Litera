@@ -1,0 +1,17 @@
+C:\Users\kenji\source\repos\litera\litera\bin\Debug\net8.0-windows\litera.exe
+C:\Users\kenji\source\repos\litera\litera\bin\Debug\net8.0-windows\litera.deps.json
+C:\Users\kenji\source\repos\litera\litera\bin\Debug\net8.0-windows\litera.runtimeconfig.json
+C:\Users\kenji\source\repos\litera\litera\bin\Debug\net8.0-windows\litera.dll
+C:\Users\kenji\source\repos\litera\litera\bin\Debug\net8.0-windows\litera.pdb
+C:\Users\kenji\source\repos\litera\litera\obj\Debug\net8.0-windows\litera.Form1.resources
+C:\Users\kenji\source\repos\litera\litera\obj\Debug\net8.0-windows\litera.csproj.GenerateResource.cache
+C:\Users\kenji\source\repos\litera\litera\obj\Debug\net8.0-windows\litera.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kenji\source\repos\litera\litera\obj\Debug\net8.0-windows\litera.AssemblyInfoInputs.cache
+C:\Users\kenji\source\repos\litera\litera\obj\Debug\net8.0-windows\litera.AssemblyInfo.cs
+C:\Users\kenji\source\repos\litera\litera\obj\Debug\net8.0-windows\litera.csproj.CoreCompileInputs.cache
+C:\Users\kenji\source\repos\litera\litera\obj\Debug\net8.0-windows\litera.dll
+C:\Users\kenji\source\repos\litera\litera\obj\Debug\net8.0-windows\refint\litera.dll
+C:\Users\kenji\source\repos\litera\litera\obj\Debug\net8.0-windows\litera.pdb
+C:\Users\kenji\source\repos\litera\litera\obj\Debug\net8.0-windows\litera.genruntimeconfig.cache
+C:\Users\kenji\source\repos\litera\litera\obj\Debug\net8.0-windows\ref\litera.dll
+C:\Users\kenji\source\repos\litera\litera\obj\Debug\net8.0-windows\litera.Properties.Resources.resources
