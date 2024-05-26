@@ -325,19 +325,21 @@ namespace litera
 
         private void TextChanged(object sender, EventArgs e)
         {
-            TextBox textBox = (TextBox)sender;
-            string textBoxName = textBox.Name;
+            TextBox activeTextBox = (TextBox)sender;
+            string textBoxName = activeTextBox.Name;
 
+            // Ensure the stacks exist for this TextBox.
             if (!undoStacks.ContainsKey(textBoxName))
             {
-                undoStacks.Add(textBoxName, new Stack<string>());
+                undoStacks[textBoxName] = new Stack<string>();
+                redoStacks[textBoxName] = new Stack<string>();
             }
 
-            undoStacks[textBoxName].Push(textBox.Text);
-            textBox.ClearUndo();
+            // Push the current state onto the undo stack.
+            undoStacks[textBoxName].Push(activeTextBox.Text);
 
-            Debug.WriteLine($"Undo stack for {textBoxName}: {string.Join(", ", undoStacks[textBoxName])}");
-            Debug.WriteLine($"Redo stack for {textBoxName}: {string.Join(", ", redoStacks[textBoxName])}");
+            // Clear the redo stack since we're making a new change.
+            redoStacks[textBoxName].Clear();
         }
 
         private void copyToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -502,6 +504,20 @@ namespace litera
                 textBox.WordWrap = !textBox.WordWrap;
                 toolStripMenuItem21.Checked = textBox.WordWrap;
             }
+        }
+
+        private void toolStripMenuItem27_Click(object sender, EventArgs e)
+        {
+            // Find
+            Form2 form2 = new Form2(getTextBox());
+            form2.Show();
+        }
+
+        private void toolStripMenuItem28_Click(object sender, EventArgs e)
+        {
+            // Replace
+            Form3 form3 = new Form3(getTextBox());
+            form3.Show();
         }
     }
 }

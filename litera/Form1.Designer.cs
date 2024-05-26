@@ -66,6 +66,9 @@
             toolStripSeparator11 = new ToolStripSeparator();
             toolStripMenuItem26 = new ToolStripMenuItem();
             fontDialog1 = new FontDialog();
+            toolStripSeparator1 = new ToolStripSeparator();
+            toolStripMenuItem27 = new ToolStripMenuItem();
+            toolStripMenuItem28 = new ToolStripMenuItem();
             tabControl1.SuspendLayout();
             tabPage2.SuspendLayout();
             menuStrip1.SuspendLayout();
@@ -195,7 +198,7 @@
             // 
             // toolStripMenuItem9
             // 
-            toolStripMenuItem9.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem10, toolStripMenuItem11, toolStripSeparator9, toolStripMenuItem12, toolStripMenuItem13, toolStripMenuItem14, toolStripSeparator10, toolStripMenuItem15 });
+            toolStripMenuItem9.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem10, toolStripMenuItem11, toolStripSeparator9, toolStripMenuItem12, toolStripMenuItem13, toolStripMenuItem14, toolStripSeparator1, toolStripMenuItem27, toolStripMenuItem28, toolStripSeparator10, toolStripMenuItem15 });
             toolStripMenuItem9.Name = "toolStripMenuItem9";
             toolStripMenuItem9.Size = new Size(39, 20);
             toolStripMenuItem9.Text = "&Edit";
@@ -275,7 +278,7 @@
             // 
             toolStripMenuItem17.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem18, toolStripMenuItem19, toolStripMenuItem20 });
             toolStripMenuItem17.Name = "toolStripMenuItem17";
-            toolStripMenuItem17.Size = new Size(180, 22);
+            toolStripMenuItem17.Size = new Size(134, 22);
             toolStripMenuItem17.Text = "Zoom";
             // 
             // toolStripMenuItem18
@@ -306,7 +309,7 @@
             // fontToolStripMenuItem
             // 
             fontToolStripMenuItem.Name = "fontToolStripMenuItem";
-            fontToolStripMenuItem.Size = new Size(180, 22);
+            fontToolStripMenuItem.Size = new Size(134, 22);
             fontToolStripMenuItem.Text = "Font";
             fontToolStripMenuItem.Click += fontToolStripMenuItem_Click;
             // 
@@ -315,7 +318,7 @@
             toolStripMenuItem21.Checked = true;
             toolStripMenuItem21.CheckState = CheckState.Checked;
             toolStripMenuItem21.Name = "toolStripMenuItem21";
-            toolStripMenuItem21.Size = new Size(180, 22);
+            toolStripMenuItem21.Size = new Size(134, 22);
             toolStripMenuItem21.Text = "Word Wrap";
             toolStripMenuItem21.Click += toolStripMenuItem21_Click;
             // 
@@ -354,6 +357,27 @@
             toolStripMenuItem26.Name = "toolStripMenuItem26";
             toolStripMenuItem26.Size = new Size(122, 22);
             toolStripMenuItem26.Text = "&About...";
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(171, 6);
+            // 
+            // toolStripMenuItem27
+            // 
+            toolStripMenuItem27.Name = "toolStripMenuItem27";
+            toolStripMenuItem27.ShortcutKeys = Keys.Control | Keys.F;
+            toolStripMenuItem27.Size = new Size(180, 22);
+            toolStripMenuItem27.Text = "Find";
+            toolStripMenuItem27.Click += toolStripMenuItem27_Click;
+            // 
+            // toolStripMenuItem28
+            // 
+            toolStripMenuItem28.Name = "toolStripMenuItem28";
+            toolStripMenuItem28.ShortcutKeys = Keys.Control | Keys.H;
+            toolStripMenuItem28.Size = new Size(180, 22);
+            toolStripMenuItem28.Text = "Replace";
+            toolStripMenuItem28.Click += toolStripMenuItem28_Click;
             // 
             // Form1
             // 
@@ -414,6 +438,9 @@
         private ToolStripSeparator toolStripSeparator11;
         private ToolStripMenuItem toolStripMenuItem26;
         private ToolStripMenuItem fontToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem toolStripMenuItem27;
+        private ToolStripMenuItem toolStripMenuItem28;
         //private ToolStripContainer toolStripContainer1;
     }
 }
