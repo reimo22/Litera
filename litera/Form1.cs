@@ -1,6 +1,9 @@
-using System.Diagnostics;
 using System.Drawing.Printing;
 using TextBox = System.Windows.Forms.TextBox;
+using LlmTornado;
+using LlmTornado.Chat.Models;
+using LlmTornado.Code;
+using System.Diagnostics;
 
 namespace litera
 {
@@ -124,6 +127,7 @@ namespace litera
             };
             textBox.Name = $"textBox{Guid.NewGuid()}"; // Set a unique name for each TextBox
             AttachTextChangedEvent(textBox);
+            textBox.ContextMenuStrip = contextMenuStrip1;
             newTab.Controls.Add(textBox);
             textBox.Focus();
 
@@ -288,38 +292,38 @@ namespace litera
         {
             textBox.TextChanged += TextChanged;
 
-            if (!undoStacks.ContainsKey(textBox.Name))
-            {
-                undoStacks.Add(textBox.Name, new Stack<string>());
-            }
+            undoStacks[textBox.Name] = new Stack<string>();
+            redoStacks[textBox.Name] = new Stack<string>();
 
-            if (!redoStacks.ContainsKey(textBox.Name))
-            {
-                redoStacks.Add(textBox.Name, new Stack<string>());
-            }
+            // Push the initial text onto the undo stack
+            undoStacks[textBox.Name].Push(textBox.Text);
         }
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TextBox activeTextBox = tabControl1.SelectedTab.Controls.OfType<TextBox>().First();
+            TextBox activeTextBox = getTextBox();
             string textBoxName = activeTextBox.Name;
+            Stack<string> undoStack = undoStacks[textBoxName];
 
-            if (undoStacks[textBoxName].Count > 0)
+            if (undoStack.Count > 0)
             {
+                string undoText = undoStack.Pop();
                 redoStacks[textBoxName].Push(activeTextBox.Text);
-                activeTextBox.Text = undoStacks[textBoxName].Pop();
+                activeTextBox.Text = undoText;
             }
         }
 
         private void redoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TextBox activeTextBox = tabControl1.SelectedTab.Controls.OfType<TextBox>().First();
+            TextBox activeTextBox = getTextBox();
             string textBoxName = activeTextBox.Name;
+            Stack<string> redoStack = redoStacks[textBoxName];
 
-            if (redoStacks[textBoxName].Count > 0)
+            if (redoStack.Count > 0)
             {
+                string redoText = redoStack.Pop();
                 undoStacks[textBoxName].Push(activeTextBox.Text);
-                activeTextBox.Text = redoStacks[textBoxName].Pop();
+                activeTextBox.Text = redoText;
             }
         }
 
@@ -328,18 +332,7 @@ namespace litera
             TextBox activeTextBox = (TextBox)sender;
             string textBoxName = activeTextBox.Name;
 
-            // Ensure the stacks exist for this TextBox.
-            if (!undoStacks.ContainsKey(textBoxName))
-            {
-                undoStacks[textBoxName] = new Stack<string>();
-                redoStacks[textBoxName] = new Stack<string>();
-            }
-
-            // Push the current state onto the undo stack.
             undoStacks[textBoxName].Push(activeTextBox.Text);
-
-            // Clear the redo stack since we're making a new change.
-            redoStacks[textBoxName].Clear();
         }
 
         private void copyToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -518,6 +511,54 @@ namespace litera
             // Replace
             Form3 form3 = new Form3(getTextBox());
             form3.Show();
+        }
+
+        private void reviseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            queryAIAsync("revise");
+        }
+
+        private void summarizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            queryAIAsync("summarize");
+        }
+
+        private void expoundToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            queryAIAsync("expound");
+        }
+
+        private async Task queryAIAsync(string reqType)
+        {
+            TornadoApi api = new TornadoApi(new List<ProviderAuthentication>
+            {
+            new ProviderAuthentication(LLmProviders.Cohere, "Tr5HtBh4v1aIdS4pMUwDNml2PeGFkIlorj3oaaBP")
+            });
+
+            TextBox textBox = getTextBox();
+            string request = "";
+            if (!string.IsNullOrEmpty(textBox.SelectedText))
+            {
+                switch (reqType)
+                {
+                    case "revise":
+                        request = "Please revise the following text" + textBox.SelectedText;
+                        break;
+                    case "summarize":
+                        request = "Please summarize the following text" + textBox.SelectedText;
+                        break;
+                    case "expound":
+                        request = "Please expound upon the following text" + textBox.SelectedText;
+                        break;
+                }
+
+                string? response = await api.Chat.CreateConversation(ChatModel.Cohere.CommandRPlus)
+                //.AppendSystemMessage()
+                .AppendSystemMessage("Litera, you are an intelligent writing assistant designed to assist users in enhancing their writing skills. Your primary objective is to guide the user through the editing and revision process by providing the output text. You will seamlessly blend with the user's style, making subtle yet impactful changes while preserving their unique voice. You will only provide feedback or additional suggestions when explicitly requested by the user.")
+                .AppendUserInput(request)
+                .GetResponse();
+                textBox.SelectedText = response;
+            }
         }
     }
 }
